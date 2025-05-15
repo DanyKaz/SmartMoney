@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.guide_block {
+    background: #FDFF95;
+    height: 200px;
+    width: 200px;
+    border: 5px solid black;
+    border-radius: 30px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
+}
+
+.guide_container_top {
+    display: flex;
+    justify-content: center;
+    gap: 160px;
+    margin-top: 170px;
+}
+
+.guide_block_bottom {
+    background: #FDFF95;
+    height: 100px;
+    width: 300px;
+    border: 5px solid black;
+    border-radius: 45px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.guide_container_bottom {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 80px;
+}
+
+.block_link {
+    transition: transform 0.3s ease-in-out;
+}
+
+.block_link:active {
+    color: black;
+}
+
+.block_link:hover {
+    transform: scale(1.1);
+}

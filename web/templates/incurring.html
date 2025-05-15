@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Внесение расходов</title>
+    <link rel="icon" href="/static/images/BrowLogo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/incurring.css">
+    <link rel="stylesheet" href="/static/css/expense_window.css">
+</head>
+<body>
+    <header class="head">
+        <a href="/">
+            <div class="logo">
+                <img src="/static/images/Logo.svg" alt="Логотип">
+            </div>
+        </a>
+        <nav>
+            <ul>
+                <li class="user">
+                    <a>{{ user.email }}</a>
+                    <button class="logout-button" type="button" onclick="logout()">Выйти</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="back">
+        <div class="big_container">
+            <div class="category-header">
+                <div class="text">Выбор категории</div>
+                <div id="errorContainer" class="error-message" style="display: none;"></div>
+                <div class="dropdown">
+                    <select id="month-select">
+                        <option value="1">Январь</option>
+                        <option value="2">Февраль</option>
+                        <option value="3">Март</option>
+                        <option value="4">Апрель</option>
+                        <option value="5">Май</option>
+                        <option value="6">Июнь</option>
+                        <option value="7">Июль</option>
+                        <option value="8">Август</option>
+                        <option value="9">Сентябрь</option>
+                        <option value="10">Октябрь</option>
+                        <option value="11">Ноябрь</option>
+                        <option value="12">Декабрь</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="add-category-container">
+                <button id="addCategoryBtn" class="add-category-btn">+ Добавить категорию</button>
+            </div>
+
+            <div class="section_container" id="categoriesContainer">
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/incurring.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - SmartMoney</title>
+    <link rel="icon" href="/static/images/BrowLogo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/registration.css">
+</head>
+<body>
+    <header class="head">
+        <a href="/start">
+            <div class="logo">
+                <img src="/static/images/Logo.svg" alt="Логотип">
+            </div>
+        </a>
+    </header>
+
+    <div class="registration-container">
+        <div class="registration-box">
+            <h2>Регистрация</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Электронная почта" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Пароль" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="confirmPassword" placeholder="Подтвердите пароль" required>
+                </div>
+                <div id="message" class="form-message"></div>
+                <div class="button-group">
+                    <button type="button" class="register-btn" id="registerBtn">Зарегистрироваться</button>
+                    <a href="/login" class="login-link">Уже есть аккаунт? Войти</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const showMessage = (text, type, autoHide = true) => {
+            const messageDiv = document.getElementById("message");
+            messageDiv.textContent = text;
+            messageDiv.classList.remove("success", "error");
+            messageDiv.classList.add("form-message", type);
+
+            if (autoHide) {
+                setTimeout(() => {
+                    messageDiv.textContent = "";
+                    messageDiv.classList.remove("success", "error");
+                }, 3000);
+            }
+        };
+
+        document.getElementById("registerBtn").addEventListener("click", async function () {
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+            if (!email || !password || !confirmPassword) {
+                showMessage("Пожалуйста, заполните все поля.", "error", false);
+                return;
+            }
+
+            if (!email.includes("@") || !email.includes(".")) {
+                showMessage("Пожалуйста, введите корректный адрес электронной почты.", "error", false);
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showMessage("Пароли не совпадают!", "error", false);
+                return;
+            }
+
+            try {
+                const response = await fetch("/auth/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+
+                if (!response.ok) {
+                    const data = await response.json();
+                    showMessage("Ошибка: " + (data.detail || "Неизвестная ошибка"), "error", false);
+                    return;
+                }
+
+                const loginResponse = await fetch("/auth/jwt/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    credentials: "include",
+                    body: new URLSearchParams({
+                        username: email,
+                        password: password
+                    })
+                });
+
+                if (loginResponse.ok) {
+                    showMessage("Регистрация выполнена успешно! Перенаправление...", "success");
+                    setTimeout(() => window.location.href = "/", 1500);
+                } else {
+                    showMessage("Аккаунт создан, но войти не удалось", "error");
+                }
+            } catch (err) {
+                showMessage("Ошибка соединения с сервером.", "error", false);
+            }
+        });
+    </script>
+
+</body>
+</html>

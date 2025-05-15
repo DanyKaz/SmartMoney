@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика за год</title>
+    <link rel="icon" href="/static/images/BrowLogo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/statistic_year.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="head">
+        <a href="/">
+            <div class="logo">
+                <img src="/static/images/Logo.svg" alt="Логотип">
+            </div>
+        </a>
+        <nav>
+            <ul>
+                <li class="user">
+                    <a>{{ user.email }}</a>
+                    <button class="logout-button" type="button" onclick="logout()">Выйти</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main_container">
+        <div class="top_container">
+            <div class="tx_top">Выберите месяц:</div>
+            <div class="select-container">
+                <select id="month-select">
+                    <option value="january">Январь</option>
+                    <option value="february">Февраль</option>
+                    <option value="march">Март</option>
+                    <option value="april">Апрель</option>
+                    <option value="may">Май</option>
+                    <option value="june">Июнь</option>
+                    <option value="july">Июль</option>
+                    <option value="august">Август</option>
+                    <option value="september">Сентябрь</option>
+                    <option value="october">Октябрь</option>
+                    <option value="november">Ноябрь</option>
+                    <option value="december">Декабрь</option>
+                </select>
+            </div>
+        </div>
+        <div class="charts-container">
+            <div class="chart-box">
+                <h3 id="category-title">Месяц: Январь</h3>
+                <canvas id="categoryChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3 id="yearly-title">Расходы за год</h3>
+                <canvas id="monthlyChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/statistic_year.js"></script>
+</body>
+</html>

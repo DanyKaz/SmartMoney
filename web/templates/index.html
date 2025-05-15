@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="icon" href="/static/images/BrowLogo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/general.css">
+</head>
+<body>
+    <header class="head">
+        <a href="/">
+            <div class="logo">
+                <img src="/static/images/Logo.svg" alt="Логотип">
+            </div>
+        </a>
+        <nav>
+            <ul>
+                <li class="user">
+                    <a>{{ user.email }}</a>
+                    <button class="logout-button" type="button" onclick="logout()">Выйти</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="guide_container_top">
+        <a href="/incurring" class="block_link">
+            <div class="guide_block">Внести расходы</div>
+        </a>
+        <a href="/statistic-month" class="block_link">
+            <div class="guide_block">Показать статистику за месяц</div>
+        </a>
+        <a href="/statistic-year" class="block_link">
+            <div class="guide_block">Показать статистику за год</div>
+        </a>
+    </div>
+    <div class="guide_container_bottom">
+        <div class="guide_block_bottom">Расходы в {{ month }}: {{ total }} рублей</div>
+        <div class="guide_block_bottom">Категория с наибольшими тратами: {{ top_category }}</div>
+        <div class="guide_block_bottom">Наибольшая трата за месяц: {{ top_product }}</div>
+    </div>
+
+    <script>
+        async function logout() {
+            try {
+                const response = await fetch('/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    alert('Ошибка при выходе');
+                }
+            } catch (error) {
+                alert('Ошибка при выходе: ' + error);
+            }
+        }
+    </script>
+
+</body>
+</html>
